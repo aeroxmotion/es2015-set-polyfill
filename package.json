@@ -1,0 +1,16 @@
+{
+  "name": "es2015-set-polyfill",
+  "version": "0.1.0",
+  "description": "Simple `Set` polyfill",
+  "main": "set.polyfill.js",
+  "repository": "https://github.com/aeroxmotion/es2015-set-polyfill",
+  "author": "Camilo Rodríguez <aeromotiondesign@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "minify": "uglifyjs -c -m -o set.polyfill.min.js -- set.polyfill.js"
+  },
+  "devDependencies": {
+    "uglify-js": "^3.1.3"
+  }
+}
