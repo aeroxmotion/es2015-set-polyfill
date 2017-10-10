@@ -129,4 +129,8 @@
     return '[[' + key + '-' + Math.random().toString(36).slice(2) + ']]'
   }
 
-})(this)
+})(
+  typeof global !== 'undefined' ? global :
+  typeof window !== 'undefined' ? window :
+  this
+)
