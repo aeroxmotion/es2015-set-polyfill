@@ -115,7 +115,7 @@
 
         return {
           value: set[data][index++],
-          done: index === set.size
+          done: index >= set.size
         }
       }
     })(),
