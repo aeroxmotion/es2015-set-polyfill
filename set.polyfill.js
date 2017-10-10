@@ -99,26 +99,24 @@
   Set.prototype.keys = Set.prototype.values
 
   var set = internalSlot('Set')
+  var index = internalSlot('Index')
 
   function SetIterator (setObj) {
     this[set] = setObj
+    this[index] = 0
   }
 
   SetIterator.prototype = {
     constructor: SetIterator,
 
-    next: (function () {
-      var index = 0
+    next: function () {
+      var setObj = this[set]
 
-      return function () {
-        var setObj = this[set]
-
-        return {
-          value: setObj[data][index++],
-          done: index >= set.size
-        }
+      return {
+        value: setObj[data][this[index]++],
+        done: this[index] > setObj.size
       }
-    })(),
+    },
 
     toString: function () {
       return '[object Set Iterator]'
