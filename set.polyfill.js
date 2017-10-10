@@ -111,10 +111,10 @@
       var index = 0
 
       return function () {
-        var set = this[set]
+        var setObj = this[set]
 
         return {
-          value: set[data][index++],
+          value: setObj[data][index++],
           done: index >= set.size
         }
       }
