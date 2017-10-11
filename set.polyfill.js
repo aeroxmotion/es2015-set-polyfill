@@ -50,12 +50,7 @@
       var values = this[data]
       var index = values.indexOf(value)
 
-      if (index > -1) {
-        values.splice(index, 1)
-        return true
-      }
-
-      return false
+      return index > -1 && values.splice(index, 1).length === 1
     },
 
     forEach: function (callback, thisArg) {
