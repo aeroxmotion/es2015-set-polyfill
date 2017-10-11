@@ -65,11 +65,11 @@
     },
 
     entries: function () {
-      return createIterator(this, valueGetter)
+      return createIterator(this, entryGetter)
     },
 
     values: function () {
-      return createIterator(this, entryGetter)
+      return createIterator(this, valueGetter)
     },
 
     toString: function () {
