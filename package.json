@@ -1,6 +1,6 @@
 {
   "name": "es2015-set-polyfill",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Simple `Set` polyfill",
   "main": "set.polyfill.js",
   "repository": "https://github.com/aeroxmotion/es2015-set-polyfill",

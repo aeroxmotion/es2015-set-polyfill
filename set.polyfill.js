@@ -8,12 +8,13 @@
   // Assign the polyfill to the global scope
   if (!('Set' in root)) root.Set = Set
 
-  var data = internalSlot('Data')
+  // Random internal key
+  var data = '[[Data-' + Math.random().toString(36).slice(2) + ']]'
 
   function Set (iterable) {
     this[data] = []
 
-    if (typeof iterable !== 'undefined') {
+    if (iterable != null) {
       var length = iterable.length
 
       for (var i = 0; i < length; i++) {
@@ -25,11 +26,12 @@
   Set.prototype = {
     constructor: Set,
 
-    size: 0,
+    get size () {
+      return this[data].length
+    },
 
     clear: function () {
       this[data] = []
-      this.size = 0
     },
 
     has: function (value) {
@@ -39,7 +41,6 @@
     add: function (value) {
       if (!this.has(value)) {
         this[data].push(value)
-        this.size++
       }
 
       return this
@@ -50,8 +51,7 @@
       var index = values.indexOf(value)
 
       if (index > -1) {
-        values.splice(1, index)
-        this.size--
+        values.splice(index, 1)
         return true
       }
 
@@ -70,24 +70,11 @@
     },
 
     entries: function () {
-      var iterator = this.values()
-      var next = iterator.next.bind(iterator)
-
-      iterator.next = function () {
-        var result = next()
-
-        if (!result.done) {
-          result.value = [result.value, result.value]
-        }
-
-        return result
-      }
-
-      return iterator
+      return createIterator(this, valueGetter)
     },
 
     values: function () {
-      return new SetIterator(this)
+      return createIterator(this, entryGetter)
     },
 
     toString: function () {
@@ -95,36 +82,34 @@
     }
   }
 
+  function entryGetter (value, done) {
+    if (!done) return [value, value]
+  }
+
+  function valueGetter (value) {
+    return value
+  }
+
   // Alias
   Set.prototype.keys = Set.prototype.values
 
-  var set = internalSlot('Set')
-  var index = internalSlot('Index')
+  function createIterator (set, getter) {
+    var index = 0
 
-  function SetIterator (setObj) {
-    this[set] = setObj
-    this[index] = 0
-  }
+    return Object.create({
+      next: function () {
+        var done = index >= set.size
 
-  SetIterator.prototype = {
-    constructor: SetIterator,
+        return {
+          value: getter(set[data][index++], done),
+          done: done
+        }
+      },
 
-    next: function () {
-      var setObj = this[set]
-
-      return {
-        value: setObj[data][this[index]++],
-        done: this[index] > setObj.size
+      toString: function () {
+        return '[object Set Iterator]'
       }
-    },
-
-    toString: function () {
-      return '[object Set Iterator]'
-    }
-  }
-
-  function internalSlot (key) {
-    return '[[' + key + '-' + Math.random().toString(36).slice(2) + ']]'
+    })
   }
 
 })(
