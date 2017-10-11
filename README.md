@@ -1,5 +1,7 @@
 # ES2015 Set polyfill
 
+[![Build Status](https://travis-ci.org/aeroxmotion/es2015-set-polyfill.svg?branch=master)](https://travis-ci.org/aeroxmotion/es2015-set-polyfill)
+
 Simple and ultra-lightweight [Set object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) polyfill
 
 ## Installation/Usage
