@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "test": "node test.js",
     "minify": "uglifyjs -c -m -o set.polyfill.min.js -- set.polyfill.js"
   },
   "devDependencies": {
