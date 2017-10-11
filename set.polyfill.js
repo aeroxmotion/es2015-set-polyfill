@@ -54,13 +54,12 @@
     },
 
     forEach: function (callback, thisArg) {
-      var iterator = this.entries()
+      var values = this[data]
+      var length = values.length
 
-      while (true) {
-        var result = iterator.next()
-        if (result.done) return
-
-        callback.apply(thisArg, result.value.concat(this))
+      for (var i = 0; i < length; i++) {
+        var value = values[i]
+        callback.call(thisArg, value, value, this)
       }
     },
 
