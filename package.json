@@ -12,7 +12,7 @@
     "minify": "uglifyjs -c -m -o set.polyfill.min.js -- set.polyfill.js"
   },
   "devDependencies": {
-    "tape": "^4.8.0",
+    "tape": "^4.13.2",
     "uglify-js": "^3.1.3"
   }
 }
